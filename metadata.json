@@ -1,0 +1,5 @@
+{
+  "name": "SleepFlow",
+  "description": "A high-performance sleep pattern visualization and habit optimization dashboard. Analyze sleep regularity, morning condition, and habit performance through advanced temporal analytics.",
+  "requestFramePermissions": []
+}
