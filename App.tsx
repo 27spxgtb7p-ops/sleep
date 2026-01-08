@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { SleepRecord, Habit, HabitType } from './types';
-import DailyEntry from './components/DailyEntry';
-import HabitManager from './components/HabitManager';
-import StatsView from './components/StatsView';
-import HistoryModal from './components/HistoryModal';
+import { SleepRecord, Habit, HabitType } from './types.ts';
+import DailyEntry from './components/DailyEntry.tsx';
+import HabitManager from './components/HabitManager.tsx';
+import StatsView from './components/StatsView.tsx';
+import HistoryModal from './components/HistoryModal.tsx';
 import { Waves, Calendar, BarChart3, Settings, Trash2 } from 'lucide-react';
 
 const STORAGE_KEY_RECORDS = 'sleep_flow_v3_records';
@@ -17,10 +17,14 @@ const App: React.FC = () => {
   const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
-    const r = localStorage.getItem(STORAGE_KEY_RECORDS);
-    const h = localStorage.getItem(STORAGE_KEY_HABITS);
-    if (r) setRecords(JSON.parse(r));
-    if (h) setHabits(JSON.parse(h));
+    try {
+      const r = localStorage.getItem(STORAGE_KEY_RECORDS);
+      const h = localStorage.getItem(STORAGE_KEY_HABITS);
+      if (r) setRecords(JSON.parse(r));
+      if (h) setHabits(JSON.parse(h));
+    } catch (e) {
+      console.error("Failed to load data", e);
+    }
   }, []);
 
   const saveRecord = useCallback((record: SleepRecord) => {
